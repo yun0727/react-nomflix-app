@@ -2,7 +2,7 @@ import {useQuery} from "react-query"
 import styled from "styled-components";
 import { makeImagePath } from "../utils";
 import Sliders from "./Components/Slider";
-import { IGetDataResult, LIST_TYPE, getNowPlayingMovies, getUpcomingMovies } from "../api";
+import { IGetDataResult, LIST_TYPE, getNowPlayingMovies, getPopularMovies, getPopularTvShows, getUpcomingMovies } from "../api";
 
 const Wrapper = styled.div`
   background: black;
@@ -25,7 +25,7 @@ const Banner = styled.div<{bgPhoto:string}>`
 `
 const Title = styled.h2`
   font-size: 68px;
-  margin-top: 80px;
+  margin-top: 50px;
   margin-bottom: 20px; 
 `
 const Overview = styled.p`
@@ -34,7 +34,7 @@ const Overview = styled.p`
 `
 const SliderArea = styled.div`
   position: relative;
-  margin-top: -16.8rem;
+  margin-top: -12rem;
   @media screen and (max-width: 700px) {
     margin-top: -8.8rem;
   }
@@ -50,6 +50,18 @@ function Home(){
   const { data: upcomingMoviesList } = useQuery<IGetDataResult>(
     [LIST_TYPE[1], "upcomingMovies"],
     getUpcomingMovies
+  );
+
+  // popular
+  const { data: popularMoviesList } = useQuery<IGetDataResult>(
+    [LIST_TYPE[2], "popularMovies"],
+    getPopularMovies
+  );
+
+  // get Tv Show
+  const { data: tvShowList } = useQuery<IGetDataResult>(
+    [LIST_TYPE[3], "popularTvShows"],
+    getPopularTvShows
   );
 
   return (
@@ -77,6 +89,20 @@ function Home(){
               title={"UPCOMING MOVIES"}
               listType={LIST_TYPE[1]}
               mediaType={"movie"}
+              menuName={"home"}
+            />
+            <Sliders
+              data={popularMoviesList as IGetDataResult}
+              title={"POPULAR MOVIES"}
+              listType={LIST_TYPE[2]}
+              mediaType={"movie"}
+              menuName={"home"}
+            />
+            <Sliders
+              data={tvShowList as IGetDataResult}
+              title={"POPULAR TV SHOWS"}
+              listType={LIST_TYPE[3]}
+              mediaType={"tv"}
               menuName={"home"}
             />
 

@@ -8,11 +8,12 @@ import { makeImagePath } from "../../utils";
 const Wrapper = styled(motion.div)`
 position: relative;
 min-height: 23.9rem;
-margin-top: 3rem;
+margin-top: -7rem;
 `
 const Title = styled.h2`
 font-size: 30px;
 margin-bottom: 20px; 
+padding-top: 20px;
 `
 const Row = styled(motion.div)`
 display: grid;
